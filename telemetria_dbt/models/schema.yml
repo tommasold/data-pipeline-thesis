@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: telemetria_veicoli
+
+models:
+  - name: clean_telemetria
+    description: Dati filtrati e arricchiti con stato
+    columns:
+      - name: timestamp
+        tests: [not_null]
+      - name: vehicle_id
+        tests: [not_null]
+      - name: parametro
+        tests: [not_null]
+      - name: valore
+        tests: [not_null]
+      - name: stato
+        tests: [not_null]

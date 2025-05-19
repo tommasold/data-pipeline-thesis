@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# dbt
+telemetria_dbt/target/
+dbt_modules/
+
+# OS/macOS
+.DS_Store
+
+# Airbyte docker/k8s logs (se hai qualcosa)
+.logs/
+
+#altra documentazione privata
+
+documentazione/
