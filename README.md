@@ -35,10 +35,15 @@ Airbyte sincronizza i dati da `clean_telemetria` (DB sorgente) verso una tabella
 ## 📂 Struttura progetto
 
 -- auto_1.py / auto_2.py # Simulatori veicoli
+
 -- main_pipeline.py # Esecuzione combinata
+
 --telemetria_dbt/ # Progetto dbt
+
 -- .env # Variabili ambiente (non tracciato)
+
 -- airbyte_notes.md # Configurazione Airbyte
+
 -- README.md
 
 
