@@ -1,0 +1,10 @@
+apiVersion: airbyte.io/v1alpha1
+kind: SourceDefinition
+metadata:
+  name: source-macchina3
+spec:
+  name: Macchina 3 API
+  dockerRepository: airbyte/source-macchina3
+  dockerImageTag: dev
+  documentationUrl: http://localhost
+

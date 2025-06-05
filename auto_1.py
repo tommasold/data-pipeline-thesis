@@ -13,7 +13,7 @@ DB_CONFIG = {
     'user': os.getenv('DB_USER'),
     'password': os.getenv('DB_PASSWORD'),
     'host': os.getenv('DB_HOST'),
-    'port': '55432'
+    'port': '5432'
 }
 print("Connessione al DB con config:", DB_CONFIG)
 def insert_data(vehicle_id):
