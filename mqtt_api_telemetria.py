@@ -16,10 +16,10 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client()
 client.connect("localhost", 1883)
-client.subscribe("telemetria/auto1")
+client.subscribe("telemetria/dati2")  # <-- Cambia qui se modifichi lo script
 client.on_message = on_message
 client.loop_start()
 
-@app.get("/dati1")
+@app.get("/dati2")
 def get_dati():
-    return messaggi[-10:]
+    return messaggi

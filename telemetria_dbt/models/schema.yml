@@ -4,10 +4,11 @@ sources:
   - name: public
     tables:
       - name: telemetria_veicoli
+      - name: telemetria_veicoli_mqtt
 
 models:
-  - name: clean_telemetria
-    description: Dati filtrati e arricchiti con stato
+  - name: telemetria_finale
+    description: Dati unificati da telemetria_veicoli e telemetria_veicoli_mqtt, filtrati e arricchiti con stato
     columns:
       - name: timestamp
         tests: [not_null]
@@ -19,3 +20,23 @@ models:
         tests: [not_null]
       - name: stato
         tests: [not_null]
+
+  - name: media_parametri_per_macchina
+    description: Media dei valori dei sensori per ogni macchina e parametro
+    columns:
+      - name: vehicle_id
+        tests: [not_null]
+      - name: parametro
+        tests: [not_null]
+      - name: media_valore
+        tests: []
+
+  - name: warning_per_macchina
+    description: Conteggio dei warning per ogni macchina e parametro
+    columns:
+      - name: vehicle_id
+        tests: [not_null]
+      - name: parametro
+        tests: [not_null]
+      - name: warning_count
+        tests: []

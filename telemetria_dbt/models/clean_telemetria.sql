@@ -14,13 +14,25 @@ SELECT
 
     WHEN parametro = 'pressione_olio' AND (valore < 1.2 OR valore > 4.8) THEN 'CRITICAL'
     WHEN parametro = 'pressione_olio' AND (valore BETWEEN 1.2 AND 1.5 OR valore BETWEEN 4.5 AND 4.8) THEN 'WARNING'
+    WHEN parametro = 'pressione_olio' THEN 'OK'
+
+    WHEN parametro = 'temperatura_freni' AND valore > 850 THEN 'CRITICAL'
+    WHEN parametro = 'temperatura_freni' AND valore BETWEEN 750 AND 850 THEN 'WARNING'
+    WHEN parametro = 'temperatura_freni' THEN 'OK'
+
     ELSE 'OK'
   END AS stato
-FROM
-  {{ source('public', 'telemetria_veicoli') }}
+FROM (
+  SELECT timestamp, vehicle_id, parametro, valore
+  FROM {{ source('public', 'telemetria_veicoli') }}
+
+  UNION ALL
+
+  SELECT CAST(timestamp AS timestamp), vehicle_id, parametro, valore
+  FROM {{ source('public', 'telemetria_veicoli_mqtt') }}
+) AS unione
 WHERE
-  (
-    (parametro = 'giri_motore' AND valore BETWEEN 800 AND 7000) OR
-    (parametro = 'temperatura' AND valore BETWEEN 70 AND 120) OR
-    (parametro = 'pressione_olio' AND valore BETWEEN 1.0 AND 5.0)
+  parametro IN (
+    'giri_motore', 'temperatura', 'pressione_olio', 'temperatura_freni',
+    'velocità', 'marcia', 'acceleratore', 'frenata'
   )
