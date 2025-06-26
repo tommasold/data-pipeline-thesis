@@ -3,7 +3,6 @@ import subprocess
 import time
 import os
 
-# Directory del progetto dbt
 dbt_dir = os.path.expanduser("~/Desktop/data-pipeline-thesis/telemetria_dbt")
 dbt_cmd = ["dbt", "run"]
 

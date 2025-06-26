@@ -1,59 +1,60 @@
-# Telemetria Pipeline – Airbyte + dbt + PostgreSQL
+# 🚗 Telemetria Veicoli - Pipeline Dati con Airbyte, MQTT e Superset
 
-Questo progetto simula una pipeline di raccolta, pulizia e sincronizzazione di dati telemetrici provenienti da veicoli. L’intero sistema è stato progettato come caso d’uso per comprendere le funzionalità del tool **Airbyte**, in combinazione con **dbt** per la trasformazione e **PostgreSQL** come sistema di storage.
+**Progetto di Tesi- Università degli Studi di Ferrara**
 
-## 🔧 Tecnologie usate
-
-- **Python** – per generare dati simulati (telemetria veicoli)
-- **PostgreSQL** – database di origine e destinazione
-- **Airbyte** – per sincronizzazione dei dati tra i database
-- **dbt (Data Build Tool)** – per pulizia e trasformazione
-- **Docker + abctl (Kubernetes)** – per esecuzione in locale
-
-## 📡 Script Python
-
-Due script (`auto_1.py`, `auto_2.py`) simulano veicoli che ogni tot secondi inviano i seguenti parametri:
-- `giri_motore`
-- `temperatura`
-- `pressione_olio`
-
-I dati vengono salvati in una tabella chiamata `telemetria_veicoli`.
-
-## 🧪 Trasformazioni con dbt
-
-`dbt` legge i dati dalla tabella grezza `telemetria_veicoli` e crea un modello chiamato `clean_telemetria` che:
-- Filtra solo i valori nei range accettabili
-- Aggiunge una colonna `stato` che classifica ogni misura come:
-  - `OK` → valori buoni
-  - `WARNING` → valori al limite
-  - `CRITICAL` → valori prossimi a errore
-
-## 🔁 Sincronizzazione con Airbyte
-
-Airbyte sincronizza i dati da `clean_telemetria` (DB sorgente) verso una tabella identica nel DB di destinazione (`telemetria_pulita.clean_telemetria`). Il sync è impostato per avvenire ogni 15 minuti.
-
-## 📂 Struttura progetto
-
--- auto_1.py / auto_2.py # Simulatori veicoli
-
--- main_pipeline.py # Esecuzione combinata
-
---telemetria_dbt/ # Progetto dbt
-
--- .env # Variabili ambiente (non tracciato)
-
--- airbyte_notes.md # Configurazione Airbyte
-
--- README.md
-
-
-## ▶️ Esecuzione
-
-1. Avvia PostgreSQL e Airbyte (`abctl local install`)
-2. Lancia gli script Python
-3. Avvia `dbt run` (manualmente o con loop)
-4. Verifica i dati in Airbyte e nel DB di destinazione
+Questo repository documenta lo sviluppo di una **pipeline di analisi dati automatizzata** per la telemetria di veicoli da corsa, integrando tecnologie moderne come **Airbyte**, **PostgreSQL**, **MQTT**, **dbt** e **Apache Superset**.  
+Il progetto è stato realizzato come parte del tirocinio e della tesi triennale in Informatica.
 
 ---
 
-Progetto realizzato per il tirocinio universitario presso l’Università degli Studi di Ferrara.
+## 🔍 Obiettivo
+
+Creare una pipeline **ETL completa** in grado di:
+- simulare dati di telemetria (es. temperatura, giri motore, pressione olio);
+- raccoglierli via **PostgreSQL** o **MQTT**;
+- trasformarli e pulirli tramite **dbt**;
+- visualizzarli in tempo reale tramite **Apache Superset**;
+- gestire la logica da una web app con autenticazione.
+
+---
+
+## 🧰 Tecnologie utilizzate
+
+| Strumento         | Descrizione                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| Python            | Generazione e invio dati simulati da sensori                                |
+| PostgreSQL        | Database relazionale per raccolta e destinazione                            |
+| MQTT (paho-mqtt)  | Protocollo per invio dati da "macchine virtuali"                            |
+| Airbyte           | Tool EL(T) per trasferimento dati tra sorgenti e destinazioni               |
+| dbt               | Tool di trasformazione e pulizia dei dati                                   |
+| Apache Superset   | Dashboard e visualizzazione dati                                            |
+| Flask + Bootstrap | Web app per login e reindirizzamento sicuro a Superset                      |
+| Kubernetes + abctl| Deployment e gestione di Airbyte in cluster                                 |
+
+
+## 🧩 Pipeline dati
+
+1. **Simulazione sensori**  
+   - Dati generati da script Python e scritti in `telemetria.telemetria_veicoli` (PostgreSQL)  
+   - Dati alternativamente pubblicati via MQTT da un secondo script
+
+2. **Airbyte**  
+   - Source 1: PostgreSQL `telemetria`
+   - Source 2: MQTT → PostgreSQL `telemetria_mqtt`
+   - Destination comune: `clean_telemetria` (PostgreSQL centralizzato)
+
+3. **Pulizia con dbt**  
+   - Validazione dati sensati
+   - Creazione colonna `stato`: OK / WARNING / CRITICAL
+
+4. **Visualizzazione con Superset**  
+   - Dashboard con Big Number charts per:
+     - Giri motore
+     - Pressione olio
+     - Temperatura motore
+     - Temperatura freni
+     - Velocità
+
+
+
+

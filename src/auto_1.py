@@ -6,7 +6,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Configurazione database
 DB_CONFIG = {
     'dbname': os.getenv('DB_NAME'),
     'user': os.getenv('DB_USER'),
@@ -48,4 +47,4 @@ def insert_data(vehicle_id):
 if __name__ == "__main__":
     while True:
         insert_data("auto 1")
-        time.sleep(5)
+        time.sleep(100)

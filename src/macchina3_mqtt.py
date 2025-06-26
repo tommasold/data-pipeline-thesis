@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 import json
 
-# Configura il broker MQTT
+# broker MQTT
 MQTT_BROKER = "localhost"
 MQTT_PORT = 1883
 MQTT_TOPIC = "telemetria/dati2"
@@ -41,4 +41,4 @@ if __name__ == "__main__":
         for messaggio in messaggi:
             client.publish(MQTT_TOPIC, json.dumps(messaggio))
             print("Inviato:", messaggio)
-        time.sleep(30)
+        time.sleep(100)

@@ -55,20 +55,20 @@ title = tk.Label(root, text="Controller Pipeline F1", font=("Segoe UI", 18, "bol
 title.pack(pady=15)
 
 # Pulsante avvio
-start_btn = tk.Button(root, text="▶️ Avvia Tutto", font=("Segoe UI", 12), width=25,
+start_btn = tk.Button(root, text="▶Avvia Tutto", font=("Segoe UI", 12), width=25,
                       bg="#000000", fg="white", activebackground="#000000",
                       relief="flat", command=avvia_processi)
 start_btn.pack(pady=10)
 
 # Pulsante stop
-stop_btn = tk.Button(root, text="🔴 Termina Tutto", font=("Segoe UI", 12), width=25,
+stop_btn = tk.Button(root, text="Termina Tutto", font=("Segoe UI", 12), width=25,
                      bg="#F44336", fg="white", activebackground="#D32F2F",
                      relief="flat", command=termina_processi)
 stop_btn.pack(pady=10)
 
 # Stato
 status_var = tk.StringVar()
-status_var.set("⚪ In attesa")
+status_var.set("In attesa")
 status_label = tk.Label(root, textvariable=status_var, font=("Segoe UI", 12), fg="#555", bg="#000000")
 status_label.pack(pady=20)
 
