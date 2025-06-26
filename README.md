@@ -28,7 +28,6 @@ Creare una pipeline **ETL completa** in grado di:
 | Airbyte           | Tool EL(T) per trasferimento dati tra sorgenti e destinazioni               |
 | dbt               | Tool di trasformazione e pulizia dei dati                                   |
 | Apache Superset   | Dashboard e visualizzazione dati                                            |
-| Flask + Bootstrap | Web app per login e reindirizzamento sicuro a Superset                      |
 | Kubernetes + abctl| Deployment e gestione di Airbyte in cluster                                 |
 
 
