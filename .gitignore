@@ -16,3 +16,7 @@ dbt_modules/
 #altra documentazione privata
 
 documentazione/
+
+#file privati o di gestione
+
+private_file/
